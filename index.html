@@ -1,50 +1,156 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anais❤️</title>
-    <style>
-        body {
-            background-color: #000;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-        h1 {
-            font-size: 3rem;
-            color: #ff4da6;
-        }
-        #mensaje {
-            margin-top: 20px;
-            font-size: 2rem;
-            color: #ff99cc;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-        #mensaje.visible {
-            opacity: 1;
-        }
-    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anais❤️</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+        h1 {
+            font-size: 3rem;
+            color: #ff4da6;
+            z-index: 10;
+        }
+        /* Contenedor para los "te amo" que aparecen al tocar */
+        #click-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Para que no interfiera con el click del body */
+            z-index: 20;
+        }
+        /* Estilo de cada "Te amo" que aparece al tocar */
+        .click-text {
+            position: absolute;
+            color: #ff4da6;
+            font-weight: bold;
+            user-select: none;
+            animation: floatUp 2s ease forwards;
+            font-size: 1.5rem;
+            text-shadow: 0 0 5px #ff4da6, 0 0 10px #ff4da6;
+        }
+        /* Animación para que suban y desaparezcan */
+        @keyframes floatUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+        }
+        /* Contenedor para la lluvia */
+        #rain-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 5;
+        }
+        /* Cada texto de la lluvia */
+        .rain-text {
+            position: absolute;
+            color: #ff99cc;
+            font-size: 1rem;
+            font-weight: 600;
+            user-select: none;
+            white-space: nowrap;
+            text-shadow: 0 0 3px #ff99cc;
+            opacity: 0.8;
+            animation-name: fall;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+        /* Animación para caer */
+        @keyframes fall {
+            0% {
+                transform: translateY(-100%);
+            }
+            100% {
+                transform: translateY(110vh);
+            }
+        }
+    </style>
 </head>
-<body onclick="mostrarMensaje()">
-    <h1>Anais❤️</h1>
-    <div id="mensaje">Te amo</div>
+<body onclick="mostrarMuchosTeAmo(event)">
+    <h1>Anais❤️</h1>
 
-    <script>
-        function mostrarMensaje() {
-            const mensaje = document.getElementById("mensaje");
-            mensaje.classList.add("visible");
-            setTimeout(() => {
-                mensaje.classList.remove("visible");
-            }, 2000);
-        }
-    </script>
+    <div id="click-container"></div>
+    <div id="rain-container"></div>
+
+    <script>
+        const clickContainer = document.getElementById("click-container");
+        const rainContainer = document.getElementById("rain-container");
+
+        // Función para crear muchos "Te amo" en el click
+        function mostrarMuchosTeAmo(event) {
+            const cantidad = 20; // Cantidad de textos por click
+            for (let i = 0; i < cantidad; i++) {
+                const span = document.createElement("span");
+                span.textContent = "Te amo";
+                span.className = "click-text";
+                // Posición aleatoria cerca del click
+                const x = event.clientX + (Math.random() * 100 - 50);
+                const y = event.clientY + (Math.random() * 100 - 50);
+                span.style.left = `${x}px`;
+                span.style.top = `${y}px`;
+                // Tamaño aleatorio
+                span.style.fontSize = `${1 + Math.random() * 1.5}rem`;
+                clickContainer.appendChild(span);
+                // Lo removemos después de la animación (2s)
+                setTimeout(() => {
+                    clickContainer.removeChild(span);
+                }, 2000);
+            }
+        }
+
+        // Función para crear un texto de lluvia con duración y retraso aleatorios
+        function crearTextoLluvia() {
+            const span = document.createElement("span");
+            span.textContent = "Te amo";
+            span.className = "rain-text";
+            // Posición horizontal aleatoria
+            span.style.left = `${Math.random() * window.innerWidth}px`;
+            // Tamaño aleatorio
+            span.style.fontSize = `${0.8 + Math.random() * 0.7}rem`;
+            // Duración de la caída entre 5 y 10 segundos
+            const duracion = 5 + Math.random() * 5;
+            span.style.animationDuration = `${duracion}s`;
+            // Delay para que no todos empiecen juntos
+            span.style.animationDelay = `${-Math.random() * duracion}s`;
+
+            rainContainer.appendChild(span);
+
+            // Cuando termine la animación se puede resetear para que sea infinito,
+            // pero con infinite en CSS no es necesario removerlos.
+        }
+
+        // Crear muchos textos para la lluvia inicialmente
+        const totalLluvia = 50;
+        for (let i = 0; i < totalLluvia; i++) {
+            crearTextoLluvia();
+        }
+
+        // Si quieres, puedes crear nuevos textos cada cierto tiempo para más dinamismo
+        // setInterval(crearTextoLluvia, 1000);
+    </script>
 </body>
 </html>
-
