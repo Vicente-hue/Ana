@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -21,9 +20,31 @@
             font-size: 3rem;
             color: #ff4da6;
         }
+        #mensaje {
+            margin-top: 20px;
+            font-size: 2rem;
+            color: #ff99cc;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        #mensaje.visible {
+            opacity: 1;
+        }
     </style>
 </head>
-<body>
+<body onclick="mostrarMensaje()">
     <h1>Anais❤️</h1>
+    <div id="mensaje">Te amo</div>
+
+    <script>
+        function mostrarMensaje() {
+            const mensaje = document.getElementById("mensaje");
+            mensaje.classList.add("visible");
+            setTimeout(() => {
+                mensaje.classList.remove("visible");
+            }, 2000);
+        }
+    </script>
 </body>
 </html>
+
