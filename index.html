@@ -1,138 +1,136 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Anais❤️</title>
-    <style>
-        body {
-            background-color: #000; /* Fondo negro puro */
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            overflow: hidden;
-            position: relative;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anais❤️</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
 
-        h1 {
-            font-size: 3rem;
-            color: #ff4da6;
-            text-shadow: 0 0 10px #ff4da6, 0 0 20px #ff4da6;
-            z-index: 10;
-        }
+    h1 {
+      font-size: 3rem;
+      color: #ff4da6;
+      text-shadow: 0 0 10px #ff4da6, 0 0 20px #ff4da6;
+      z-index: 10;
+    }
 
-        #click-container, #rain-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
+    #click-container, #rain-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
 
-        .click-text {
-            position: absolute;
-            color: #ff4da6;
-            font-weight: bold;
-            user-select: none;
-            animation: floatUp 2s ease forwards;
-            font-size: 1.5rem;
-            text-shadow: 0 0 5px #ff4da6, 0 0 10px #ff4da6;
-        }
+    .click-text {
+      position: absolute;
+      color: #ff4da6;
+      font-weight: bold;
+      user-select: none;
+      animation: floatUp 2s ease forwards;
+      font-size: 1.5rem;
+      text-shadow: 0 0 5px #ff4da6, 0 0 10px #ff4da6;
+    }
 
-        @keyframes floatUp {
-            0% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-        }
+    @keyframes floatUp {
+      0% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+    }
 
-        .rain-text {
-            position: absolute;
-            color: #ff99cc;
-            font-size: 1rem;
-            font-weight: 600;
-            user-select: none;
-            white-space: nowrap;
-            text-shadow: 0 0 3px #ff99cc, 0 0 6px #ff99cc;
-            opacity: 0.8;
-            animation-name: fall;
-            animation-timing-function: linear;
-            animation-iteration-count: infinite;
-        }
+    .rain-text {
+      position: absolute;
+      color: #ff99cc;
+      font-size: 1rem;
+      font-weight: 600;
+      user-select: none;
+      white-space: nowrap;
+      text-shadow: 0 0 3px #ff99cc, 0 0 6px #ff99cc;
+      opacity: 0.8;
+      animation-name: fall;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
 
-        @keyframes fall {
-            0% {
-                transform: translateY(-100%);
-            }
-            100% {
-                transform: translateY(110vh);
-            }
-        }
-    </style>
+    @keyframes fall {
+      0% {
+        transform: translateY(-100%);
+      }
+      100% {
+        transform: translateY(110vh);
+      }
+    }
+  </style>
 </head>
 <body onclick="mostrarMuchosTeAmo(event)">
-    <h1>Anais❤️</h1>
-    <div id="click-container"></div>
-    <div id="rain-container"></div>
+  <h1>Anais❤️</h1>
+  <div id="click-container"></div>
+  <div id="rain-container"></div>
 
-    <script>
-        const clickContainer = document.getElementById("click-container");
-        const rainContainer = document.getElementById("rain-container");
+  <script>
+    const clickContainer = document.getElementById("click-container");
+    const rainContainer = document.getElementById("rain-container");
 
-        function mostrarMuchosTeAmo(event) {
-            const cantidad = 20;
-            for (let i = 0; i < cantidad; i++) {
-                const span = document.createElement("span");
-                span.textContent = "Te amo";
-                span.className = "click-text";
-                const x = event.clientX + (Math.random() * 100 - 50);
-                const y = event.clientY + (Math.random() * 100 - 50);
-                span.style.left = `${x}px`;
-                span.style.top = `${y}px`;
-                span.style.fontSize = `${1 + Math.random() * 1.5}rem`;
-                clickContainer.appendChild(span);
-                setTimeout(() => {
-                    clickContainer.removeChild(span);
-                }, 2000);
-            }
+    function mostrarMuchosTeAmo(event) {
+      const cantidad = 20;
+      for (let i = 0; i < cantidad; i++) {
+        const span = document.createElement("span");
+        span.textContent = "Te amo";
+        span.className = "click-text";
+        const x = event.clientX + (Math.random() * 100 - 50);
+        const y = event.clientY + (Math.random() * 100 - 50);
+        span.style.left = `${x}px`;
+        span.style.top = `${y}px`;
+        span.style.fontSize = `${1 + Math.random() * 1.5}rem`;
+        clickContainer.appendChild(span);
+        setTimeout(() => {
+          clickContainer.removeChild(span);
+        }, 2000);
+      }
 
-            // Lluvia adicional al clic
-            for (let i = 0; i < 10; i++) {
-                crearTextoLluvia(event.clientX + (Math.random() * 60 - 30));
-            }
-        }
+      // Lluvia extra al clic
+      for (let i = 0; i < 10; i++) {
+        crearTextoLluvia(event.clientX + (Math.random() * 60 - 30));
+      }
+    }
 
-        function crearTextoLluvia(posX = null) {
-            const span = document.createElement("span");
-            span.textContent = "Te amo";
-            span.className = "rain-text";
-            span.style.left = posX !== null ? `${posX}px` : `${Math.random() * window.innerWidth}px`;
-            span.style.fontSize = `${0.8 + Math.random() * 0.7}rem`;
-            const duracion = 5 + Math.random() * 5;
-            span.style.animationDuration = `${duracion}s`;
-            span.style.animationDelay = `${-Math.random() * duracion}s`;
-            rainContainer.appendChild(span);
-        }
+    function crearTextoLluvia(posX = null) {
+      const span = document.createElement("span");
+      span.textContent = "Te amo";
+      span.className = "rain-text";
+      span.style.left = posX !== null ? `${posX}px` : `${Math.random() * window.innerWidth}px`;
+      span.style.fontSize = `${0.8 + Math.random() * 0.7}rem`;
+      const duracion = 5 + Math.random() * 5;
+      span.style.animationDuration = `${duracion}s`;
+      span.style.animationDelay = `${-Math.random() * duracion}s`;
+      rainContainer.appendChild(span);
+    }
 
-        // Lluvia constante
-        setInterval(() => {
-            crearTextoLluvia();
-        }, 150); // más fluida
+    setInterval(() => {
+      crearTextoLluvia();
+    }, 150);
 
-        // Lluvia inicial
-        for (let i = 0; i < 60; i++) {
-            crearTextoLluvia();
-        }
-    </script>
+    for (let i = 0; i < 60; i++) {
+      crearTextoLluvia();
+    }
+  </script>
 </body>
 </html>
