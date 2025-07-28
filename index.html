@@ -1,3 +1,4 @@
+<!-- Código actualizado con TE AMO ❤️ -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -26,7 +27,7 @@
       z-index: 10;
     }
 
-    #click-container, #rain-container {
+    #click-container, #rain-container, #fireworks-container {
       position: absolute;
       top: 0;
       left: 0;
@@ -78,27 +79,48 @@
         transform: translateY(110vh);
       }
     }
+
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background-color: #ff4da6;
+      border-radius: 50%;
+      opacity: 1;
+      pointer-events: none;
+      animation: explode 800ms ease-out forwards;
+    }
+
+    @keyframes explode {
+      100% {
+        transform: translate(var(--dx), var(--dy));
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 <body onclick="mostrarMuchosTeAmo(event)">
   <h1>Anais❤️</h1>
   <div id="click-container"></div>
   <div id="rain-container"></div>
+  <div id="fireworks-container"></div>
 
   <script>
     const clickContainer = document.getElementById("click-container");
     const rainContainer = document.getElementById("rain-container");
+    const fireworksContainer = document.getElementById("fireworks-container");
 
     function mostrarMuchosTeAmo(event) {
-      const cantidad = 20;
-      for (let i = 0; i < cantidad; i++) {
+      const x = event.clientX;
+      const y = event.clientY;
+
+      // TE AMO ❤️ flotantes
+      for (let i = 0; i < 20; i++) {
         const span = document.createElement("span");
-        span.textContent = "Te amo";
+        span.textContent = "TE AMO ❤️";
         span.className = "click-text";
-        const x = event.clientX + (Math.random() * 100 - 50);
-        const y = event.clientY + (Math.random() * 100 - 50);
-        span.style.left = `${x}px`;
-        span.style.top = `${y}px`;
+        span.style.left = `${x + (Math.random() * 100 - 50)}px`;
+        span.style.top = `${y + (Math.random() * 100 - 50)}px`;
         span.style.fontSize = `${1 + Math.random() * 1.5}rem`;
         clickContainer.appendChild(span);
         setTimeout(() => {
@@ -106,15 +128,18 @@
         }, 2000);
       }
 
-      // Lluvia extra al clic
+      // Lluvia desde clic
       for (let i = 0; i < 10; i++) {
-        crearTextoLluvia(event.clientX + (Math.random() * 60 - 30));
+        crearTextoLluvia(x + (Math.random() * 60 - 30));
       }
+
+      // Fuegos artificiales
+      lanzarFuegos(x, y);
     }
 
     function crearTextoLluvia(posX = null) {
       const span = document.createElement("span");
-      span.textContent = "Te amo";
+      span.textContent = "TE AMO ❤️";
       span.className = "rain-text";
       span.style.left = posX !== null ? `${posX}px` : `${Math.random() * window.innerWidth}px`;
       span.style.fontSize = `${0.8 + Math.random() * 0.7}rem`;
@@ -122,6 +147,26 @@
       span.style.animationDuration = `${duracion}s`;
       span.style.animationDelay = `${-Math.random() * duracion}s`;
       rainContainer.appendChild(span);
+    }
+
+    function lanzarFuegos(x, y) {
+      const cantidad = 30;
+      for (let i = 0; i < cantidad; i++) {
+        const particle = document.createElement("div");
+        particle.className = "particle";
+        const angle = Math.random() * 2 * Math.PI;
+        const radius = Math.random() * 80 + 20;
+        const dx = Math.cos(angle) * radius;
+        const dy = Math.sin(angle) * radius;
+        particle.style.left = `${x}px`;
+        particle.style.top = `${y}px`;
+        particle.style.setProperty("--dx", `${dx}px`);
+        particle.style.setProperty("--dy", `${dy}px`);
+        fireworksContainer.appendChild(particle);
+        setTimeout(() => {
+          fireworksContainer.removeChild(particle);
+        }, 800);
+      }
     }
 
     setInterval(() => {
